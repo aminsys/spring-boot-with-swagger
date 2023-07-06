@@ -1,0 +1,103 @@
+openapi: 3.0.3
+info:
+  title: Swagger Students Registry - OpenAPI 3.0
+  description: |-
+    This is a sample Students API Server based on the OpenAPI 3.0 specification.
+    
+    My GitHub profile:
+    - [My GitHub](https://github.com/aminsys)
+
+  contact:
+    email: localhost@localhost.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+  
+servers:
+  - url: http://localhost:8080/api/v1
+  
+tags:
+  - name: student
+    description: All registered students in repository.
+    externalDocs:
+      url: http://docs.localhost:8080/students-operations.htm
+  
+  
+paths:
+  /students:
+    get:
+      tags: 
+        - student
+      summary: Return a list of students.
+      description: Get all the challanges in the repository/ data source.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Invalid request
+          
+          
+  /student/new:
+    post:
+      tags:
+        - student
+      summary: Add a new student.
+      description: Add a new student to the student repository/ data source.
+      operationId: addStudent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/New'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/New'
+        '405':
+          description: Invalid input
+          
+                
+
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Student's ID
+          example: 1001
+        name:
+          type: string
+          description: Student's name
+          example: Jane Doe
+        grade:
+          type: integer
+          format: int32
+          description: Student's final grade out of 100.
+          example: 95
+          
+    New:
+      type: object
+      properties:
+        id: 
+          type: integer
+          format: int64
+          example: 1002
+        name:
+          type: string
+          example: Sakamoto Ryu
+        grade:
+          type: integer
+          format: int32
+          example: 91
+      
